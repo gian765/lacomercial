@@ -106,6 +106,23 @@ public function setLimite($limite){
         //Devolvemos los datos
         return $datos; 
     }
+    /**
+     * metodo de insercion
+     * permite insertar un registro en la BD
+     * @param datos
+     */
+    public function insertar ($datos) {
+        // INSERT INTO productos (codigo, nombre, descripcion, precio, stock, imagen)
+        // values ('201','motorola G9','Un gran telefono', '45000', '10', 'motorola.jpg')
+        unset($datos->id); // Eliminamos el valor del id
+        $campos = implode(",", array_keys($datos)); // separamos las claves del array
+        $valores = implode ("','", array_values($datos)); // separamos los valores del array
+
+        //  Guardamos en la variable $sql la instruccion INSERT
+        $sql = "INSERT INTO $this->tabla($campos) VALUES($valores)";
+        echo $sql."<br>"; // mostramos la unstruccion SQL resultante
+        $this->db->query($sql); // ejecutamos la instruccion SQL
+    }
 }
 
 
